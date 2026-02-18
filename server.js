@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import ApiResponse from "./src/utils/apiResponse.js";
+import userRoutes from "./src/route/user.route.js";
 
 // recuperer les variables d'environnement
 dotenv.config();
@@ -26,7 +27,7 @@ const MONGO_URI = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_HOST}:${MON
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use("/users", userRoutes);
 // middleware pour logger les requetes
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path} - ${new Date().toISOString()}`);
@@ -56,7 +57,7 @@ app.use((req, res) => {
   ApiResponse.notFound(res, "Route not found");
 });
 
-//  ton middleware d'erreur doit avoir 
+//  ton middleware d'erreur doit avoir
 app.use((err, req, res, next) => {
   console.error(err.stack);
   ApiResponse.error(res, "Internal Server Error");
