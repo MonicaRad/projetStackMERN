@@ -1,5 +1,5 @@
 import orderRepository from "../repository/order.repository.js";
-import User from "../models/User.js";
+import User from "../model/User.js";
 
 const createOrder = async (data) => {
   const { name, surname, mail, number, address, items } = data;
