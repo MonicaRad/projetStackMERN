@@ -111,8 +111,122 @@ Exemple de requête :
 ```js
 db.movies.find({ duration: "90 min" });
 ```
+## Routes de l’API
+
+L’API expose trois principales ressources : **Users**, **Orders** et **Movies**.
+Voici le détail des endpoints actuellement disponibles.
 
 ---
+
+### Users
+
+Base URL : `/users`
+
+* **POST /users**
+  Créer un nouvel utilisateur
+
+* **GET /users**
+  Récupérer la liste de tous les utilisateurs
+
+* **GET /users/:id**
+  Récupérer un utilisateur par son identifiant
+
+* **PUT /users/:id**
+  Mettre à jour les informations d’un utilisateur
+
+---
+
+### Orders
+
+Base URL : `/orders`
+
+* **POST /orders**
+  Créer une nouvelle commande
+
+* **GET /orders**
+  Récupérer l’ensemble des commandes
+
+* **GET /orders/:id**
+  Récupérer une commande spécifique par son identifiant
+
+* **DELETE /orders/:id**
+  Supprimer une commande
+
+---
+
+### Movies
+
+Base URL : `/api/movies`
+
+* **GET /api/movies**
+  Récupérer tous les films
+
+* **GET /api/movies/:id**
+  Récupérer un film par son identifiant
+
+* **GET /api/movies/show/:show_id**
+  Récupérer un film via son show_id
+
+* **GET /api/movies/search**
+  Rechercher un film selon des critères
+
+* **POST /api/movies**
+  Ajouter un nouveau film
+
+* **PUT /api/movies/:id**
+  Mettre à jour un film
+
+* **DELETE /api/movies/:id**
+  Supprimer un film
+
+* **GET /api/movies/routes**
+  Route de test pour vérifier la configuration des routes Movies
+
+---
+
+Ces routes constituent la structure principale de l’API REST du projet.
+
+---
+
+## Frontend
+
+Le frontend de l’application est développé avec React et se trouve dans le dossier `client`.
+
+### Lancement
+
+Se placer dans le dossier du frontend :
+
+```bash
+cd front-react
+```
+
+Installer les dépendances :
+
+```bash
+npm install
+```
+
+Démarrer le serveur de développement :
+
+```bash
+npm start
+```
+
+L’application est accessible à l’adresse :
+
+```
+http://localhost:3000
+```
+
+---
+
+## État actuel
+
+Pour l’instant, le frontend n’est pas encore connecté au backend.
+
+Les données affichées sont statiques ou simulées.
+La connexion avec l’API Node.js et la base MongoDB sera intégrée dans une prochaine étape du projet.
+
 
 ## Objectif
 
