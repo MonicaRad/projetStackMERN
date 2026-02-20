@@ -4,7 +4,7 @@ const orderItemSchema = new mongoose.Schema(
   {
     movie: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Movie",
+      ref: "MovieModel",
       required: true,
     },
     quantity: {
