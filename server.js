@@ -6,6 +6,9 @@ import ApiResponse from "./src/utils/apiResponse.js";
 import userRoutes from "./src/route/user.route.js";
 import connectDatabase from "./src/config/database.js";
 import orderRoutes from "./src/route/order.route.js";
+import connectDB from "./src/config/database.js";
+import movie_router from "./src/route/movie.routes.js";
+import errorHandler from "./src/middleware/errorHandler.js";
 
 dotenv.config();
 
@@ -30,22 +33,26 @@ app.get("/", (req, res) => {
   ApiResponse.success(res, null, "Welcome to the API");
 });
 
-// connexion DB puis lancement serveur
-connectDatabase().then(() => {
+// ✅ ROUTES (avant 404)
+app.use("/api/movies", movie_router);
+
+// ✅ DB + start server
+(async () => {
+  await connectDB();
   app.listen(PORT, HOST, () => {
     console.log(`Server is running on http://${HOST}:${PORT}`);
   });
-});
+})();
 
+// ✅ 404 (après routes)
 app.use((req, res) => {
   ApiResponse.notFound(res, "Route not found");
 });
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  ApiResponse.error(res, "Internal Server Error");
-});
+// ✅ error handler (tout à la fin)
+app.use(errorHandler);
 
+// arrêt propre
 process.on("SIGINT", async () => {
   console.log("Server is shutting down...");
   await mongoose.connection.close();
