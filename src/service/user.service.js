@@ -1,8 +1,8 @@
 import userRepository from "../repository/user.repository.js";
 
 const createUser = async (data) => {
-  if (!data.name || !data.email) {
-    throw new Error("Name and email are required");
+  if (!name || !surname || !mail || !number || !address) {
+    throw new Error("Name, surname, mail, number and address are required");
   }
 
   return await userRepository.createUser(data);
