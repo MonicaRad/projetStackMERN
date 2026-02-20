@@ -4,7 +4,7 @@ import ApiResponse from "../utils/apiResponse.js";
 const createUser = async (req, res, next) => {
   try {
     const user = await userService.createUser(req.body);
-    ApiResponse.success(res, user, "User created");
+    return ApiResponse.success(res, user, "User created");
   } catch (error) {
     next(error);
   }
@@ -13,7 +13,7 @@ const createUser = async (req, res, next) => {
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await userService.getAllUsers();
-    ApiResponse.success(res, users);
+    return ApiResponse.success(res, users);
   } catch (error) {
     next(error);
   }
@@ -22,7 +22,12 @@ const getAllUsers = async (req, res, next) => {
 const getUserById = async (req, res, next) => {
   try {
     const user = await userService.getUserById(req.params.id);
-    ApiResponse.success(res, user);
+
+    if (!user) {
+      return next(new Error("User not found"));
+    }
+
+    return ApiResponse.success(res, user);
   } catch (error) {
     next(error);
   }
@@ -31,7 +36,12 @@ const getUserById = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const user = await userService.updateUser(req.params.id, req.body);
-    ApiResponse.success(res, user, "User updated");
+
+    if (!user) {
+      return next(new Error("User not found"));
+    }
+
+    return ApiResponse.success(res, user, "User updated");
   } catch (error) {
     next(error);
   }
